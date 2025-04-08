@@ -14,8 +14,14 @@ namespace dream_game
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
 
-            this.buttonPesquisar.Click += buttonPesquisar_Click;
-            this.buttonExcluir.Click += buttonExcluir_Click;
+            buttonPesquisar.Click += buttonPesquisar_Click;
+            buttonExcluir.Click += buttonExcluir_Click;
+            buttonEditar.Click += buttonEditar_Click;
+            buttonSalvar.Click += buttonSalvar_Click;
+
+            dataGridViewJogos.ReadOnly = false;
+            dataGridViewJogos.AllowUserToAddRows = false;
+            dataGridViewJogos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
@@ -45,6 +51,12 @@ namespace dream_game
                         DataTable tabela = new DataTable();
                         adapter.Fill(tabela);
                         dataGridViewJogos.DataSource = tabela;
+
+                        // libera somente campos editáveis
+                        foreach (DataGridViewColumn col in dataGridViewJogos.Columns)
+                        {
+                            col.ReadOnly = !(col.Name == "nome" || col.Name == "nota" || col.Name == "preco" || col.Name == "descricao");
+                        }
 
                         labelInfo.Text = $"Total: {tabela.Rows.Count} jogo(s).";
                         labelInfo.ForeColor = Color.LightGreen;
@@ -89,16 +101,10 @@ namespace dream_game
                         adapter.Fill(tabela);
                         dataGridViewJogos.DataSource = tabela;
 
-                        if (tabela.Rows.Count == 0)
-                        {
-                            labelInfo.Text = "Nenhum jogo encontrado.";
-                            labelInfo.ForeColor = Color.OrangeRed;
-                        }
-                        else
-                        {
-                            labelInfo.Text = $"Encontrado(s): {tabela.Rows.Count} jogo(s).";
-                            labelInfo.ForeColor = Color.LightGreen;
-                        }
+                        labelInfo.Text = tabela.Rows.Count == 0
+                            ? "Nenhum jogo encontrado."
+                            : $"Encontrado(s): {tabela.Rows.Count} jogo(s).";
+                        labelInfo.ForeColor = tabela.Rows.Count == 0 ? Color.OrangeRed : Color.LightGreen;
                     }
                 }
                 catch (Exception ex)
@@ -118,8 +124,7 @@ namespace dream_game
                 return;
             }
 
-            DataGridViewRow linha = dataGridViewJogos.SelectedRows[0];
-            int idJogo = Convert.ToInt32(linha.Cells["id_jogos"].Value);
+            int idJogo = Convert.ToInt32(dataGridViewJogos.SelectedRows[0].Cells["id_jogos"].Value);
 
             DialogResult confirm = MessageBox.Show("Deseja realmente excluir este jogo?", "Confirmar Exclusão", MessageBoxButtons.YesNo);
 
@@ -147,6 +152,76 @@ namespace dream_game
                     {
                         labelInfo.Text = "Erro ao excluir: " + ex.Message;
                         labelInfo.ForeColor = Color.Salmon;
+                    }
+                }
+            }
+        }
+
+        private void buttonEditar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewJogos.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um jogo para editar.");
+                return;
+            }
+
+            dataGridViewJogos.BeginEdit(true);
+            MessageBox.Show("Você pode editar os campos permitidos: nome, nota, preco e descrição.\nClique em 'Salvar' para aplicar.");
+        }
+
+        private void buttonSalvar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewJogos.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um jogo para salvar.");
+                return;
+            }
+
+            DataGridViewRow row = dataGridViewJogos.SelectedRows[0];
+
+            int idJogo = Convert.ToInt32(row.Cells["id_jogos"].Value);
+            string nome = row.Cells["nome"].Value?.ToString();
+            string descricao = row.Cells["descricao"].Value?.ToString();
+            decimal preco;
+            float nota;
+
+            if (!decimal.TryParse(row.Cells["preco"].Value?.ToString(), out preco))
+            {
+                MessageBox.Show("Preço inválido.");
+                return;
+            }
+
+            if (!float.TryParse(row.Cells["nota"].Value?.ToString(), out nota))
+            {
+                MessageBox.Show("Nota inválida.");
+                return;
+            }
+
+            using (MySqlConnection conexao = new MySqlConnection(conexaoString))
+            {
+                string query = @"
+                    UPDATE tb_jogos 
+                    SET nome = @Nome, preco = @Preco, nota = @Nota, descricao = @Descricao
+                    WHERE id_jogos = @Id";
+
+                using (MySqlCommand comando = new MySqlCommand(query, conexao))
+                {
+                    comando.Parameters.AddWithValue("@Nome", nome);
+                    comando.Parameters.AddWithValue("@Preco", preco);
+                    comando.Parameters.AddWithValue("@Nota", nota);
+                    comando.Parameters.AddWithValue("@Descricao", descricao);
+                    comando.Parameters.AddWithValue("@Id", idJogo);
+
+                    try
+                    {
+                        conexao.Open();
+                        comando.ExecuteNonQuery();
+                        MessageBox.Show("Jogo atualizado com sucesso.");
+                        CarregarTodosJogos();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao salvar: " + ex.Message);
                     }
                 }
             }

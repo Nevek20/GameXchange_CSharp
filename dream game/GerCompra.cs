@@ -13,9 +13,12 @@ namespace dream_game
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
+
             this.Load += GerCompra_Load;
             buttonPesquisar.Click += buttonPesquisar_Click;
             buttonExcluir.Click += buttonExcluir_Click;
+            buttonSalvar.Click += buttonSalvar_Click;
+            buttonEditar.Click += buttonEditar_Click;
         }
 
         private void GerCompra_Load(object sender, EventArgs e)
@@ -46,6 +49,13 @@ namespace dream_game
                 DataTable tabela = new DataTable();
                 adapter.Fill(tabela);
                 dataGridViewCompras.DataSource = tabela;
+            }
+
+            // Permitir edição apenas em colunas específicas
+            dataGridViewCompras.ReadOnly = false;
+            foreach (DataGridViewColumn col in dataGridViewCompras.Columns)
+            {
+                col.ReadOnly = !(col.Name == "chave_ativacao" || col.Name == "data_compra");
             }
         }
 
@@ -82,6 +92,46 @@ namespace dream_game
             CarregarCompras();
         }
 
+        private void buttonSalvar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCompras.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione uma compra para salvar alterações.");
+                return;
+            }
+
+            DataGridViewRow row = dataGridViewCompras.SelectedRows[0];
+            int idCompra = Convert.ToInt32(row.Cells["id_compras"].Value);
+            string chave = row.Cells["chave_ativacao"].Value?.ToString();
+            DateTime dataCompra;
+
+            if (!DateTime.TryParse(row.Cells["data_compra"].Value?.ToString(), out dataCompra))
+            {
+                MessageBox.Show("Data inválida.");
+                return;
+            }
+
+            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string query = @"
+                UPDATE tb_compras 
+                SET chave_ativacao = @Chave, data_compra = @Data 
+                WHERE id_compras = @Id";
+
+            using (MySqlConnection conexao = new MySqlConnection(conexaoString))
+            using (MySqlCommand comando = new MySqlCommand(query, conexao))
+            {
+                comando.Parameters.AddWithValue("@Chave", chave);
+                comando.Parameters.AddWithValue("@Data", dataCompra);
+                comando.Parameters.AddWithValue("@Id", idCompra);
+
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Alterações salvas com sucesso.");
+            CarregarCompras();
+        }
+
         private void AjustarCores()
         {
             this.BackColor = Color.FromArgb(64, 0, 64);
@@ -109,16 +159,24 @@ namespace dream_game
                     dgv.EnableHeadersVisualStyles = false;
                 }
             }
+
         }
 
         private void buttonSair_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void GerCompra_Load_1(object sender, EventArgs e)
+        private void buttonEditar_Click(object sender, EventArgs e)
         {
+            if (dataGridViewCompras.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha para editar.");
+                return;
+            }
 
+            dataGridViewCompras.BeginEdit(true);
+
+            MessageBox.Show("Agora você pode editar os campos permitidos.\nClique em 'Salvar' para aplicar as alterações.");
         }
     }
 }

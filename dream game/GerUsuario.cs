@@ -13,9 +13,16 @@ namespace dream_game
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
+
             this.Load += GerUsuario_Load;
             buttonPesquisar.Click += buttonPesquisar_Click;
             buttonExcluir.Click += buttonExcluir_Click;
+            buttonEditar.Click += buttonEditar_Click;
+            buttonSalvar.Click += buttonSalvar_Click;
+
+            dataGridViewUsuarios.ReadOnly = false;
+            dataGridViewUsuarios.AllowUserToAddRows = false;
+            dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void GerUsuario_Load(object sender, EventArgs e)
@@ -30,9 +37,7 @@ namespace dream_game
             string query = "SELECT id_usuario, email, nome_perfil, nome_real, data_nascimento, qtd_jogos, tipo FROM tb_usuario";
 
             if (!string.IsNullOrWhiteSpace(filtro))
-            {
                 query += " WHERE nome_perfil LIKE @Filtro OR nome_real LIKE @Filtro";
-            }
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))
             using (MySqlCommand comando = new MySqlCommand(query, conexao))
@@ -45,6 +50,9 @@ namespace dream_game
 
                 adapter.Fill(tabela);
                 dataGridViewUsuarios.DataSource = tabela;
+
+                foreach (DataGridViewColumn col in dataGridViewUsuarios.Columns)
+                    col.ReadOnly = col.Name == "id_usuario" || col.Name == "qtd_jogos";
             }
         }
 
@@ -79,6 +87,72 @@ namespace dream_game
             }
 
             CarregarUsuarios();
+        }
+
+        private void buttonEditar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um usuário para editar.");
+                return;
+            }
+
+            dataGridViewUsuarios.BeginEdit(true);
+            MessageBox.Show("Você pode agora editar os dados do usuário.\nClique em 'Salvar' para aplicar as alterações.");
+        }
+
+        private void buttonSalvar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewUsuarios.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um usuário para salvar.");
+                return;
+            }
+
+            DataGridViewRow row = dataGridViewUsuarios.SelectedRows[0];
+
+            int id = Convert.ToInt32(row.Cells["id_usuario"].Value);
+            string email = row.Cells["email"].Value?.ToString();
+            string perfil = row.Cells["nome_perfil"].Value?.ToString();
+            string nome = row.Cells["nome_real"].Value?.ToString();
+            string nascimento = row.Cells["data_nascimento"].Value?.ToString();
+            string tipo = row.Cells["tipo"].Value?.ToString();
+
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(perfil) ||
+                string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(nascimento))
+            {
+                MessageBox.Show("Todos os campos obrigatórios devem ser preenchidos.");
+                return;
+            }
+
+            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string query = @"
+                UPDATE tb_usuario 
+                SET email = @Email, nome_perfil = @Perfil, nome_real = @Nome, data_nascimento = @Nascimento, tipo = @Tipo
+                WHERE id_usuario = @Id";
+
+            using (MySqlConnection conexao = new MySqlConnection(conexaoString))
+            using (MySqlCommand comando = new MySqlCommand(query, conexao))
+            {
+                comando.Parameters.AddWithValue("@Email", email);
+                comando.Parameters.AddWithValue("@Perfil", perfil);
+                comando.Parameters.AddWithValue("@Nome", nome);
+                comando.Parameters.AddWithValue("@Nascimento", nascimento);
+                comando.Parameters.AddWithValue("@Tipo", tipo);
+                comando.Parameters.AddWithValue("@Id", id);
+
+                try
+                {
+                    conexao.Open();
+                    comando.ExecuteNonQuery();
+                    MessageBox.Show("Usuário atualizado com sucesso.");
+                    CarregarUsuarios();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao salvar: " + ex.Message);
+                }
+            }
         }
 
         private void AjustarCores()

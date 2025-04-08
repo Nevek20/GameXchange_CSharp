@@ -13,9 +13,16 @@ namespace dream_game
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
+
             this.Load += GerCupom_Load;
             buttonPesquisar.Click += buttonPesquisar_Click;
             buttonExcluir.Click += buttonExcluir_Click;
+            buttonEditar.Click += buttonEditar_Click;
+            buttonSalvar.Click += buttonSalvar_Click;
+
+            dataGridViewCupons.ReadOnly = false;
+            dataGridViewCupons.AllowUserToAddRows = false;
+            dataGridViewCupons.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void GerCupom_Load(object sender, EventArgs e)
@@ -42,6 +49,10 @@ namespace dream_game
                 DataTable tabela = new DataTable();
                 adapter.Fill(tabela);
                 dataGridViewCupons.DataSource = tabela;
+
+                // Bloqueia tudo, exceto colunas editáveis
+                foreach (DataGridViewColumn col in dataGridViewCupons.Columns)
+                    col.ReadOnly = !(col.Name == "nome_cupom" || col.Name == "desconto");
             }
         }
 
@@ -75,6 +86,55 @@ namespace dream_game
                 comando.ExecuteNonQuery();
             }
 
+            CarregarCupons();
+        }
+
+        private void buttonEditar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCupons.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione uma linha para editar.");
+                return;
+            }
+
+            dataGridViewCupons.BeginEdit(true);
+            MessageBox.Show("Você pode agora editar o nome do cupom ou o valor de desconto.\nClique em 'Salvar' para aplicar.");
+        }
+
+        private void buttonSalvar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCupons.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um cupom para salvar.");
+                return;
+            }
+
+            DataGridViewRow row = dataGridViewCupons.SelectedRows[0];
+            int idCupom = Convert.ToInt32(row.Cells["id_cupom"].Value);
+            string nomeCupom = row.Cells["nome_cupom"].Value?.ToString();
+            decimal desconto;
+
+            if (!decimal.TryParse(row.Cells["desconto"].Value?.ToString(), out desconto))
+            {
+                MessageBox.Show("Valor de desconto inválido.");
+                return;
+            }
+
+            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string query = "UPDATE tb_cupom SET nome_cupom = @Nome, desconto = @Desconto WHERE id_cupom = @Id";
+
+            using (MySqlConnection conexao = new MySqlConnection(conexaoString))
+            using (MySqlCommand comando = new MySqlCommand(query, conexao))
+            {
+                comando.Parameters.AddWithValue("@Nome", nomeCupom);
+                comando.Parameters.AddWithValue("@Desconto", desconto);
+                comando.Parameters.AddWithValue("@Id", idCupom);
+
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Cupom atualizado com sucesso.");
             CarregarCupons();
         }
 
