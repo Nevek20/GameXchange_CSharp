@@ -41,5 +41,17 @@ namespace dream_game
             GerCompra form = new GerCompra();
             form.ShowDialog();
         }
+
+        private void buttonCupom_Click(object sender, EventArgs e)
+        {
+            GerCupom form = new GerCupom();
+            form.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GerSuporte form = new GerSuporte();
+            form.ShowDialog();
+        }
     }
 }

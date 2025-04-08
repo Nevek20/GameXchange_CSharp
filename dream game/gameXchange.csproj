@@ -123,6 +123,12 @@
     <Compile Include="GerJogo.Designer.cs">
       <DependentUpon>GerJogo.cs</DependentUpon>
     </Compile>
+    <Compile Include="GerSuporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GerSuporte.Designer.cs">
+      <DependentUpon>GerSuporte.cs</DependentUpon>
+    </Compile>
     <Compile Include="GerUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GerJogo.resx">
       <DependentUpon>GerJogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GerSuporte.resx">
+      <DependentUpon>GerSuporte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GerUsuario.resx">
       <DependentUpon>GerUsuario.cs</DependentUpon>

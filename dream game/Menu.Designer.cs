@@ -34,12 +34,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonCompras = new System.Windows.Forms.Button();
             this.buttonCupom = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonGerUsuario
             // 
             this.buttonGerUsuario.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGerUsuario.Location = new System.Drawing.Point(281, 160);
+            this.buttonGerUsuario.Location = new System.Drawing.Point(281, 137);
             this.buttonGerUsuario.Name = "buttonGerUsuario";
             this.buttonGerUsuario.Size = new System.Drawing.Size(241, 49);
             this.buttonGerUsuario.TabIndex = 0;
@@ -62,7 +63,7 @@
             // buttonGerJogo
             // 
             this.buttonGerJogo.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGerJogo.Location = new System.Drawing.Point(281, 105);
+            this.buttonGerJogo.Location = new System.Drawing.Point(281, 82);
             this.buttonGerJogo.Name = "buttonGerJogo";
             this.buttonGerJogo.Size = new System.Drawing.Size(241, 49);
             this.buttonGerJogo.TabIndex = 3;
@@ -84,7 +85,7 @@
             // buttonCompras
             // 
             this.buttonCompras.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCompras.Location = new System.Drawing.Point(281, 215);
+            this.buttonCompras.Location = new System.Drawing.Point(281, 192);
             this.buttonCompras.Name = "buttonCompras";
             this.buttonCompras.Size = new System.Drawing.Size(241, 49);
             this.buttonCompras.TabIndex = 5;
@@ -95,12 +96,24 @@
             // buttonCupom
             // 
             this.buttonCupom.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCupom.Location = new System.Drawing.Point(281, 270);
+            this.buttonCupom.Location = new System.Drawing.Point(281, 247);
             this.buttonCupom.Name = "buttonCupom";
             this.buttonCupom.Size = new System.Drawing.Size(241, 49);
             this.buttonCupom.TabIndex = 6;
             this.buttonCupom.Text = "Gerenciamento de Cupons";
             this.buttonCupom.UseVisualStyleBackColor = true;
+            this.buttonCupom.Click += new System.EventHandler(this.buttonCupom_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("MS Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(281, 302);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(241, 49);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Gerenciamento de Suporte";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Menu
             // 
@@ -108,6 +121,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonCupom);
             this.Controls.Add(this.buttonCompras);
             this.Controls.Add(this.label1);
@@ -129,5 +143,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonCompras;
         private System.Windows.Forms.Button buttonCupom;
+        private System.Windows.Forms.Button button1;
     }
 }

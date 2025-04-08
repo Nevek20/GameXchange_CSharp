@@ -1,6 +1,6 @@
 ﻿namespace dream_game
 {
-    partial class GerCupom
+    partial class GerSuporte
     {
         /// <summary>
         /// Required designer variable.
@@ -28,15 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.buttonVisualizar = new System.Windows.Forms.Button();
             this.buttonSair = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.buttonExcluir = new System.Windows.Forms.Button();
-            this.dataGridViewCupons = new System.Windows.Forms.DataGridView();
             this.buttonPesquisar = new System.Windows.Forms.Button();
             this.textBoxPesquisa = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCupons)).BeginInit();
+            this.dataGridViewDescricao = new System.Windows.Forms.DataGridView();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDescricao)).BeginInit();
             this.SuspendLayout();
+            // 
+            // buttonVisualizar
+            // 
+            this.buttonVisualizar.BackColor = System.Drawing.Color.White;
+            this.buttonVisualizar.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonVisualizar.Location = new System.Drawing.Point(237, 403);
+            this.buttonVisualizar.Name = "buttonVisualizar";
+            this.buttonVisualizar.Size = new System.Drawing.Size(85, 23);
+            this.buttonVisualizar.TabIndex = 30;
+            this.buttonVisualizar.Text = "Visualizar";
+            this.buttonVisualizar.UseVisualStyleBackColor = false;
             // 
             // buttonSair
             // 
@@ -46,10 +58,9 @@
             this.buttonSair.Location = new System.Drawing.Point(706, 403);
             this.buttonSair.Name = "buttonSair";
             this.buttonSair.Size = new System.Drawing.Size(82, 23);
-            this.buttonSair.TabIndex = 22;
+            this.buttonSair.TabIndex = 29;
             this.buttonSair.Text = "Sair";
             this.buttonSair.UseVisualStyleBackColor = false;
-            this.buttonSair.Click += new System.EventHandler(this.buttonSair_Click);
             // 
             // labelInfo
             // 
@@ -57,10 +68,10 @@
             this.labelInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelInfo.Font = new System.Drawing.Font("MS Gothic", 9.75F);
             this.labelInfo.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelInfo.Location = new System.Drawing.Point(329, 408);
+            this.labelInfo.Location = new System.Drawing.Point(328, 408);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(0, 13);
-            this.labelInfo.TabIndex = 21;
+            this.labelInfo.TabIndex = 28;
             // 
             // buttonExcluir
             // 
@@ -69,17 +80,9 @@
             this.buttonExcluir.Location = new System.Drawing.Point(127, 403);
             this.buttonExcluir.Name = "buttonExcluir";
             this.buttonExcluir.Size = new System.Drawing.Size(82, 23);
-            this.buttonExcluir.TabIndex = 20;
+            this.buttonExcluir.TabIndex = 27;
             this.buttonExcluir.Text = "Excluir";
             this.buttonExcluir.UseVisualStyleBackColor = false;
-            // 
-            // dataGridViewCupons
-            // 
-            this.dataGridViewCupons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCupons.Location = new System.Drawing.Point(12, 61);
-            this.dataGridViewCupons.Name = "dataGridViewCupons";
-            this.dataGridViewCupons.Size = new System.Drawing.Size(776, 325);
-            this.dataGridViewCupons.TabIndex = 19;
             // 
             // buttonPesquisar
             // 
@@ -88,7 +91,7 @@
             this.buttonPesquisar.Location = new System.Drawing.Point(12, 403);
             this.buttonPesquisar.Name = "buttonPesquisar";
             this.buttonPesquisar.Size = new System.Drawing.Size(82, 23);
-            this.buttonPesquisar.TabIndex = 18;
+            this.buttonPesquisar.TabIndex = 25;
             this.buttonPesquisar.Text = "Pesquisar";
             this.buttonPesquisar.UseVisualStyleBackColor = false;
             // 
@@ -97,35 +100,41 @@
             this.textBoxPesquisa.Location = new System.Drawing.Point(12, 25);
             this.textBoxPesquisa.Name = "textBoxPesquisa";
             this.textBoxPesquisa.Size = new System.Drawing.Size(361, 20);
-            this.textBoxPesquisa.TabIndex = 17;
+            this.textBoxPesquisa.TabIndex = 24;
             // 
-            // button1
+            // dataGridViewDescricao
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(241, 403);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 23);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "Editar";
-            this.button1.UseVisualStyleBackColor = false;
+            this.dataGridViewDescricao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDescricao.Location = new System.Drawing.Point(12, 61);
+            this.dataGridViewDescricao.Name = "dataGridViewDescricao";
+            this.dataGridViewDescricao.Size = new System.Drawing.Size(361, 325);
+            this.dataGridViewDescricao.TabIndex = 26;
             // 
-            // GerCupom
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(380, 61);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(408, 325);
+            this.richTextBox1.TabIndex = 31;
+            this.richTextBox1.Text = "";
+            // 
+            // GerSuporte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.buttonVisualizar);
             this.Controls.Add(this.buttonSair);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonExcluir);
-            this.Controls.Add(this.dataGridViewCupons);
+            this.Controls.Add(this.dataGridViewDescricao);
             this.Controls.Add(this.buttonPesquisar);
             this.Controls.Add(this.textBoxPesquisa);
-            this.Name = "GerCupom";
-            this.Text = "GameXchange - Gerenciamento de cupom";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCupons)).EndInit();
+            this.Name = "GerSuporte";
+            this.Text = "GerSuporte";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDescricao)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,12 +142,13 @@
 
         #endregion
 
+        private System.Windows.Forms.Button buttonVisualizar;
         private System.Windows.Forms.Button buttonSair;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Button buttonExcluir;
-        private System.Windows.Forms.DataGridView dataGridViewCupons;
         private System.Windows.Forms.Button buttonPesquisar;
         private System.Windows.Forms.TextBox textBoxPesquisa;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dataGridViewDescricao;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

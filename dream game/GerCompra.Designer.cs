@@ -34,6 +34,7 @@
             this.buttonPesquisar = new System.Windows.Forms.Button();
             this.textBoxPesquisa = new System.Windows.Forms.TextBox();
             this.buttonSair = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompras)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             this.labelInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelInfo.Font = new System.Drawing.Font("MS Gothic", 9.75F);
             this.labelInfo.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelInfo.Location = new System.Drawing.Point(267, 408);
+            this.labelInfo.Location = new System.Drawing.Point(331, 408);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(0, 13);
             this.labelInfo.TabIndex = 14;
@@ -98,12 +99,24 @@
             this.buttonSair.UseVisualStyleBackColor = false;
             this.buttonSair.Click += new System.EventHandler(this.buttonSair_Click);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(243, 403);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(82, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Editar";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // GerCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonSair);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.buttonExcluir);
@@ -112,6 +125,7 @@
             this.Controls.Add(this.textBoxPesquisa);
             this.Name = "GerCompra";
             this.Text = "GameXchange - Gerenciamento de Compras";
+            this.Load += new System.EventHandler(this.GerCompra_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompras)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -126,5 +140,6 @@
         private System.Windows.Forms.Button buttonPesquisar;
         private System.Windows.Forms.TextBox textBoxPesquisa;
         private System.Windows.Forms.Button buttonSair;
+        private System.Windows.Forms.Button button1;
     }
 }

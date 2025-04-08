@@ -6,80 +6,65 @@ using System.Windows.Forms;
 
 namespace dream_game
 {
-    public partial class GerCompra : Form
+    public partial class GerSuporte : Form
     {
-        public GerCompra()
+        public GerSuporte()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.Load += GerCompra_Load;
-            buttonPesquisar.Click += buttonPesquisar_Click;
-            buttonExcluir.Click += buttonExcluir_Click;
+            this.Load += GerSuporte_Load;
+
+            buttonVisualizar.Click += buttonVisualizar_Click;
         }
 
-        private void GerCompra_Load(object sender, EventArgs e)
+        private void GerSuporte_Load(object sender, EventArgs e)
         {
-            CarregarCompras();
+            CarregarChamados();
             AjustarCores();
         }
 
-        private void CarregarCompras(string filtro = "")
+        private void CarregarChamados()
         {
             string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
-            string query = @"
-                SELECT c.id_compras, u.nome_real AS usuario, j.nome AS jogo, c.chave_ativacao, c.data_compra
-                FROM tb_compras c
-                JOIN tb_usuario u ON u.id_usuario = c.id_usuario
-                JOIN tb_jogos j ON j.id_jogos = c.id_jogos";
-
-            if (!string.IsNullOrWhiteSpace(filtro))
-                query += " WHERE u.nome_real LIKE @Filtro OR j.nome LIKE @Filtro";
+            string query = "SELECT id_suporte, titulo, gravidade FROM tb_suporte ORDER BY id_suporte DESC";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))
             using (MySqlCommand comando = new MySqlCommand(query, conexao))
             {
-                if (!string.IsNullOrWhiteSpace(filtro))
-                    comando.Parameters.AddWithValue("@Filtro", "%" + filtro + "%");
-
                 MySqlDataAdapter adapter = new MySqlDataAdapter(comando);
                 DataTable tabela = new DataTable();
                 adapter.Fill(tabela);
-                dataGridViewCompras.DataSource = tabela;
+                dataGridViewDescricao.DataSource = tabela;
             }
         }
 
-        private void buttonPesquisar_Click(object sender, EventArgs e)
+        private void buttonVisualizar_Click(object sender, EventArgs e)
         {
-            string filtro = textBoxPesquisa.Text.Trim();
-            CarregarCompras(filtro);
-        }
-
-        private void buttonExcluir_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewCompras.SelectedRows.Count == 0)
+            if (dataGridViewDescricao.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Selecione uma compra para excluir.");
+                MessageBox.Show("Selecione uma reclamação para visualizar.");
                 return;
             }
 
-            int idCompra = Convert.ToInt32(dataGridViewCompras.SelectedRows[0].Cells["id_compras"].Value);
-
-            DialogResult confirm = MessageBox.Show("Tem certeza que deseja excluir esta compra?", "Confirmação", MessageBoxButtons.YesNo);
-            if (confirm != DialogResult.Yes) return;
-
+            int idSuporte = Convert.ToInt32(dataGridViewDescricao.SelectedRows[0].Cells["id_suporte"].Value);
             string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
-            string query = "DELETE FROM tb_compras WHERE id_compras = @Id";
+            string query = "SELECT descricao FROM tb_suporte WHERE id_suporte = @Id";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))
             using (MySqlCommand comando = new MySqlCommand(query, conexao))
             {
-                comando.Parameters.AddWithValue("@Id", idCompra);
+                comando.Parameters.AddWithValue("@Id", idSuporte);
                 conexao.Open();
-                comando.ExecuteNonQuery();
-            }
 
-            CarregarCompras();
+                using (MySqlDataReader reader = comando.ExecuteReader())
+                {
+                    if (reader.Read())
+                        richTextBox1.Text = reader["descricao"].ToString();
+                    else
+                        richTextBox1.Text = "[Reclamação não encontrada]";
+                }
+            }
         }
 
         private void AjustarCores()
@@ -108,17 +93,12 @@ namespace dream_game
                     dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
                     dgv.EnableHeadersVisualStyles = false;
                 }
+                else if (ctrl is RichTextBox rtb)
+                {
+                    rtb.BackColor = Color.White;
+                    rtb.ForeColor = Color.Black;
+                }
             }
-        }
-
-        private void buttonSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void GerCompra_Load_1(object sender, EventArgs e)
-        {
-
         }
     }
 }
