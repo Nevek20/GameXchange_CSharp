@@ -33,7 +33,7 @@ namespace dream_game
 
         private void CarregarUsuarios(string filtro = "")
         {
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123; Convert Zero Datetime=True;";
             string query = "SELECT id_usuario, email, nome_perfil, nome_real, data_nascimento, qtd_jogos, tipo FROM tb_usuario";
 
             if (!string.IsNullOrWhiteSpace(filtro))
@@ -75,7 +75,7 @@ namespace dream_game
             DialogResult confirm = MessageBox.Show("Tem certeza que deseja excluir este usuário?", "Confirmação", MessageBoxButtons.YesNo);
             if (confirm != DialogResult.Yes) return;
 
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123; Convert Zero Datetime=True;";
             string query = "DELETE FROM tb_usuario WHERE id_usuario = @Id";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))
@@ -125,7 +125,7 @@ namespace dream_game
                 return;
             }
 
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123; Convert Zero Datetime=True;";
             string query = @"
                 UPDATE tb_usuario 
                 SET email = @Email, nome_perfil = @Perfil, nome_real = @Nome, data_nascimento = @Nascimento, tipo = @Tipo

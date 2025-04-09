@@ -40,7 +40,7 @@ namespace dream_game
                 return;
             }
 
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))
             {

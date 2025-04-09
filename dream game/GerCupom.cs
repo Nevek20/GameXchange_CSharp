@@ -33,7 +33,7 @@ namespace dream_game
 
         private void CarregarCupons(string filtro = "")
         {
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = "SELECT id_cupom, nome_cupom, desconto FROM tb_cupom";
 
             if (!string.IsNullOrWhiteSpace(filtro))
@@ -75,7 +75,7 @@ namespace dream_game
             DialogResult confirm = MessageBox.Show("Tem certeza que deseja excluir este cupom?", "Confirmação", MessageBoxButtons.YesNo);
             if (confirm != DialogResult.Yes) return;
 
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = "DELETE FROM tb_cupom WHERE id_cupom = @Id";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))
@@ -120,7 +120,7 @@ namespace dream_game
                 return;
             }
 
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = "UPDATE tb_cupom SET nome_cupom = @Nome, desconto = @Desconto WHERE id_cupom = @Id";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))

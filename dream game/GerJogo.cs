@@ -24,7 +24,7 @@ namespace dream_game
             dataGridViewJogos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        private string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+        private string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
 
         private void GerJogo_Load(object sender, EventArgs e)
         {

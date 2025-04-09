@@ -26,7 +26,7 @@ namespace dream_game
 
         private void CarregarChamados()
         {
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = "SELECT id_suporte, titulo, gravidade FROM tb_suporte ORDER BY id_suporte DESC";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))
@@ -48,7 +48,7 @@ namespace dream_game
             }
 
             int idSuporte = Convert.ToInt32(dataGridViewDescricao.SelectedRows[0].Cells["id_suporte"].Value);
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = "SELECT descricao FROM tb_suporte WHERE id_suporte = @Id";
 
             using (MySqlConnection conexao = new MySqlConnection(conexaoString))

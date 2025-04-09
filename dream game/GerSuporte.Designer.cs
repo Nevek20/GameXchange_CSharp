@@ -134,7 +134,7 @@
             this.Controls.Add(this.buttonPesquisar);
             this.Controls.Add(this.textBoxPesquisa);
             this.Name = "GerSuporte";
-            this.Text = "GerSuporte";
+            this.Text = "GameXchange - Gerenciamento de Suporte";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDescricao)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
