@@ -33,7 +33,7 @@ namespace dream_game
 
         private void CarregarUsuarios(string filtro = "")
         {
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=localhost; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = "SELECT id_usuario, email, nome_perfil, nome_real, data_nascimento, qtd_jogos, tipo FROM tb_usuario";
 
             if (!string.IsNullOrWhiteSpace(filtro))
