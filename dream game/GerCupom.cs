@@ -33,7 +33,7 @@ namespace dream_game
 
         private void CarregarCupons(string filtro = "")
         {
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=localhost; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = "SELECT id_cupom, nome_cupom, desconto FROM tb_cupom";
 
             if (!string.IsNullOrWhiteSpace(filtro))
