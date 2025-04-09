@@ -29,7 +29,7 @@ namespace dream_game
 
         private void CarregarCompras(string filtro = "")
         {
-            string conexaoString = "Server=localhost; Port=3306; Database=bd_gamexchange; Uid=root; Pwd=;";
+            string conexaoString = "Server=localhost; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
             string query = @"
                 SELECT c.id_compras, u.nome_real AS usuario, j.nome AS jogo, c.chave_ativacao, c.data_compra
                 FROM tb_compras c
