@@ -19,6 +19,7 @@ namespace dream_game
             buttonExcluir.Click += buttonExcluir_Click;
             buttonEditar.Click += buttonEditar_Click;
             buttonSalvar.Click += buttonSalvar_Click;
+            buttonCriar.Click += buttonCriar_Click;
 
             dataGridViewCupons.ReadOnly = false;
             dataGridViewCupons.AllowUserToAddRows = false;
@@ -135,6 +136,42 @@ namespace dream_game
             }
 
             MessageBox.Show("Cupom atualizado com sucesso.");
+            CarregarCupons();
+        }
+
+        private void buttonCriar_Click(object sender, EventArgs e)
+        {
+            string nomeCupom = textBoxNomeCupom.Text.Trim();
+            string descontoTexto = textBoxDescontoCupom.Text.Trim();
+
+            if (string.IsNullOrEmpty(nomeCupom) || string.IsNullOrEmpty(descontoTexto))
+            {
+                MessageBox.Show("Preencha o nome do cupom e o desconto.");
+                return;
+            }
+
+            if (!decimal.TryParse(descontoTexto, out decimal desconto))
+            {
+                MessageBox.Show("Desconto inválido. Digite um número válido.");
+                return;
+            }
+
+            string conexaoString = "Server=82.180.153.103; Port=3306; Database=u531683190_bd_gamexchange; Uid=u531683190_ryan; Pwd=RyanGuida123;";
+            string query = "INSERT INTO tb_cupom (nome_cupom, desconto) VALUES (@Nome, @Desconto)";
+
+            using (MySqlConnection conexao = new MySqlConnection(conexaoString))
+            using (MySqlCommand comando = new MySqlCommand(query, conexao))
+            {
+                comando.Parameters.AddWithValue("@Nome", nomeCupom);
+                comando.Parameters.AddWithValue("@Desconto", desconto);
+
+                conexao.Open();
+                comando.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Cupom criado com sucesso!");
+            textBoxNomeCupom.Clear();
+            textBoxDescontoCupom.Clear();
             CarregarCupons();
         }
 
