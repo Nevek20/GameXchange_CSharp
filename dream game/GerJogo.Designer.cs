@@ -50,7 +50,7 @@
             // 
             this.buttonPesquisar.BackColor = System.Drawing.Color.White;
             this.buttonPesquisar.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPesquisar.Location = new System.Drawing.Point(12, 399);
+            this.buttonPesquisar.Location = new System.Drawing.Point(389, 19);
             this.buttonPesquisar.Name = "buttonPesquisar";
             this.buttonPesquisar.Size = new System.Drawing.Size(82, 23);
             this.buttonPesquisar.TabIndex = 1;
@@ -64,12 +64,13 @@
             this.dataGridViewJogos.Name = "dataGridViewJogos";
             this.dataGridViewJogos.Size = new System.Drawing.Size(776, 325);
             this.dataGridViewJogos.TabIndex = 2;
+            this.dataGridViewJogos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJogos_CellContentClick);
             // 
             // buttonExcluir
             // 
             this.buttonExcluir.BackColor = System.Drawing.Color.White;
             this.buttonExcluir.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExcluir.Location = new System.Drawing.Point(127, 399);
+            this.buttonExcluir.Location = new System.Drawing.Point(12, 399);
             this.buttonExcluir.Name = "buttonExcluir";
             this.buttonExcluir.Size = new System.Drawing.Size(82, 23);
             this.buttonExcluir.TabIndex = 3;
@@ -104,7 +105,7 @@
             // 
             this.buttonEditar.BackColor = System.Drawing.Color.White;
             this.buttonEditar.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEditar.Location = new System.Drawing.Point(239, 399);
+            this.buttonEditar.Location = new System.Drawing.Point(100, 399);
             this.buttonEditar.Name = "buttonEditar";
             this.buttonEditar.Size = new System.Drawing.Size(82, 23);
             this.buttonEditar.TabIndex = 24;
@@ -115,7 +116,7 @@
             // 
             this.buttonSalvar.BackColor = System.Drawing.Color.White;
             this.buttonSalvar.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSalvar.Location = new System.Drawing.Point(350, 399);
+            this.buttonSalvar.Location = new System.Drawing.Point(188, 399);
             this.buttonSalvar.Name = "buttonSalvar";
             this.buttonSalvar.Size = new System.Drawing.Size(82, 23);
             this.buttonSalvar.TabIndex = 25;

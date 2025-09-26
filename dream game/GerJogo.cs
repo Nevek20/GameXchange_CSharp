@@ -231,5 +231,10 @@ namespace dream_game
         {
             this.Close();
         }
+
+        private void dataGridViewJogos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

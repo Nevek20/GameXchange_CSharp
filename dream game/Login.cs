@@ -101,5 +101,10 @@ namespace dream_game
                 }
             }
         }
+
+        private void textBoxEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

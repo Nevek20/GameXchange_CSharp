@@ -83,6 +83,7 @@
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(250, 20);
             this.textBoxEmail.TabIndex = 7;
+            this.textBoxEmail.TextChanged += new System.EventHandler(this.textBoxEmail_TextChanged);
             // 
             // DreamGame
             // 
